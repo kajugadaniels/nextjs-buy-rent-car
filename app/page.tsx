@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { fetchCars } from "@/utils";
 import { HomeProps } from "@/types";
+import { fuels, yearsOfProduction } from "@/constants";
 import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@/components";
 
 export default async function Home({ searchParams }: HomeProps) {
@@ -12,7 +13,7 @@ export default async function Home({ searchParams }: HomeProps) {
     model: searchParams.model || "",
   });
 
-  console.log(allCars)
+  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
     <main className="overflow-hidden">
@@ -32,6 +33,23 @@ export default async function Home({ searchParams }: HomeProps) {
             <CustomFilter />
           </div>
         </div>
+
+        {!isDataEmpty ? (
+          <section>
+            <div className='home__cars-wrapper'>
+              {allCars?.map((car) => (
+                <CarCard />
+              ))}
+            </div>
+
+            <ShowMore />
+          </section>
+        ) : (
+          <div className='home__error-container'>
+            <h2 className='text-black text-xl font-bold'>Oops, no results</h2>
+            <p>{allCars?.message}</p>
+          </div>
+        )}
       </div>
     </main>
   );
