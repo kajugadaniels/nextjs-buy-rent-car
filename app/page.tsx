@@ -1,7 +1,19 @@
-import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@/components";
 import Image from "next/image";
+import { fetchCars } from "@/utils";
+import { HomeProps } from "@/types";
+import { CarCard, ShowMore, SearchBar, CustomFilter, Hero } from "@/components";
 
-export default function Home() {
+export default async function Home({ searchParams }: HomeProps) {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || "",
+    year: searchParams.year || 2022,
+    fuel: searchParams.fuel || "",
+    limit: searchParams.limit || 10,
+    model: searchParams.model || "",
+  });
+
+  console.log(allCars)
+
   return (
     <main className="overflow-hidden">
       <Hero />
