@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { fetchCars } from "@/utils";
 import { HomeProps } from "@/types";
 import { fuels, yearsOfProduction } from "@/constants";
@@ -16,7 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
   return (
-    <main className="overflow-hidden">
+    <main className='overflow-hidden'>
       <Hero />
 
       <div className='mt-12 padding-x padding-y max-width' id='discover'>
@@ -29,8 +28,8 @@ export default async function Home({ searchParams }: HomeProps) {
           <SearchBar />
 
           <div className='home__filter-container'>
-            <CustomFilter />
-            <CustomFilter />
+            <CustomFilter title='fuel' options={fuels} />
+            <CustomFilter title='year' options={yearsOfProduction} />
           </div>
         </div>
 
